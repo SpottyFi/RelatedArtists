@@ -8,7 +8,10 @@ let connection = mysql.createConnection ({
 
 const getRelatedArtists = function (id, showArtist) {
   let sqlQuery =
-    `select artist_name, artistid, listeners, artist_image, popularSong from artist where artistid in (select related_artist_id from relatedartists where main_artist_id = (select artistid from artist where artistid =` +
+    `select artist_name, artistid, listeners, artist_image, popularSong 
+    from artist where artistid in 
+    (select related_artist_id from relatedartists where main_artist_id = 
+    (select artistid from artist where artistid =` +
     connection.escape (id) +
     `))`;
   connection.query (sqlQuery, function (error, result) {
@@ -21,5 +24,13 @@ const getRelatedArtists = function (id, showArtist) {
     }
   });
 };
+
+const updateRelatedArtist = function(id, updateArtist, callback) {
+  let sqlQuery = `update`
+}
+
+
+
+
 
 module.exports.getRelatedArtists = getRelatedArtists;

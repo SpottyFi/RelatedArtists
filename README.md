@@ -37,3 +37,20 @@ npm install -g webpack
 npm install
 ```
 
+## CRUD API
+
+GET: 
+ - Endpoint: '/artist/relatedArtists'
+ - Result: Grabs all the related artists associated with artist called
+
+PUT: 
+ - Endpoint: '/artist/relatedArtists/:id'
+ - Result: Updates the related artists associated with artist called thorugh related artist's id
+
+POST: 
+ - Endpoint: '/artist/relatedArtists'
+ - Result: Adds a new related artist to the artists related list
+
+DELETE:
+ - Endpoint: '/artist/relatedArtists/:id'
+ - Result: Deletes a related artist from the artist's related list through related artist's id

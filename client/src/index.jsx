@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import RAApp from './app.jsx';
+import RelatedArtistsApp from './app.jsx';
 
-ReactDOM.render (<RAApp />, document.getElementById ('RAApp'));
+ReactDOM.render (<RelatedArtistsApp />, document.getElementById ('RAApp'));
 
 window.RAApp = RAApp;

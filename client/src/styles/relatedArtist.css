@@ -1,4 +1,4 @@
-html, body {
+:local(.rap){
     background-color: rgb(25, 25, 25);;
     font-family : 'Open Sans', sans-serif;
     color: white;
@@ -44,16 +44,15 @@ html, body {
     
 }
 
-:local(.RAListenersContainer) {
+/* :local(.RAListenersContainer) {
   display: flex;
   table-layout: auto;
-  width: f;
   padding: 5px;
  
-} 
+}  */
 :local(.RAListeners) {
     visibility: hidden;
-    margin-top: 11%;
+    margin-top: 17%;
     width: auto;
     padding: 5px;
    
@@ -91,6 +90,10 @@ html, body {
     -moz-transform:scale(1.1,1.1);
     border: 1.4px solid white;
   }
+
+:local(.RAButton:focus) {
+    outline: 0;
+}
 
 
 :local(.PopularSong) {

@@ -5,7 +5,7 @@ import CSSModules from 'react-css-modules';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPlayCircle} from '@fortawesome/free-solid-svg-icons';
 
-const popularSong = props => {
+const PopularSong = props => {
   let styles = {
     backgroundColor: 'rgb(25, 25, 25)',
     display: 'flex',
@@ -37,4 +37,4 @@ const popularSong = props => {
   );
 };
 
-export default CSSModules (popularSong, styles);
+export default CSSModules (PopularSong, styles);

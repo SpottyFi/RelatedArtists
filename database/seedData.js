@@ -1,40 +1,46 @@
 let faker = require('faker');
 let fs = require('fs');
 
-const stream = fs.createWriteStream('./seedData.json');
 
 console.log('STARTING DATA GENERATION!!!!')
 
-stream.write('[');
-const max = 1000000;
-let counter = 0;
-for (let i = 1; i <= max; i++) {
-  console.log(max - i);
-  counter++;
-  const randomPhotoNumber = Math.floor(Math.random() * 1002);
-  const artist = {
-    artist_name: faker.name.findName(),
-    listeners: faker.random.number(),
-    artist_image: `https://s3-us-west-1.amazonaws.com/spottyfi-photos/photos/${randomPhotoNumber}.jpeg`,
-    popularSong: faker.lorem.word(),
-    relatedArtists: [],
-  };
-  const amountOfRelated = faker.random.number({
-    min: 3,
-    max: 10
-  });
-  for (let k = 0; k < amountOfRelated; k++) {
-    const relatedArtists = {
-      artist_name: faker.name.findName(),
-      listeners: faker.random.number(),
-      artist_image: `https://s3-us-west-1.amazonaws.com/spottyfi-photos/photos/${randomPhotoNumber}.jpeg`,
-      popularSong: faker.lorem.word(),
-    }
-    artist.relatedArtists.push(relatedArtists)
+for (let i = 1; i <= 10; i++) {
+  const artistsStream = fs.createWriteStream(`./artistsList${i}.csv`);
+
+  artistsStream.write('artist_name,listeners,artist_image,popularSong\n');
+  let artistsCounter = 0;
+  let max = 100;
+  for (let j = 1; j <= max; j++) {
+    artistsCounter++;
+    const randomPhotoNumber = Math.floor(Math.random() * 1002);
+    artist = (
+      faker.name.findName() + ',' + 
+      faker.random.number() + ',' +
+      `https://s3-us-west-1.amazonaws.com/spottyfi-photos/photos/${randomPhotoNumber}.jpeg` + ',' +
+      faker.lorem.word() + '\n'
+    )
+    artistsStream.write(artist);
   }
-  stream.write(JSON.stringify(artist) + (i !== max ? ',' : ''));
-};
-stream.write(']');
-stream.end(() => {
-  console.log(counter, 'ARTISTS CREATED');
-});
+  artistsStream.end(() => {
+    console.log(artistsCounter, 'ARTISTS CREATED')
+  });
+
+  const relatedStream = fs.createWriteStream(`./relatedList${i}.csv`);
+
+  relatedStream.write('related_artist_ID,main_artist_ID\n');
+  let relatedCounter = 0;
+  for (let k = 1; k <= max; k++) {
+    relatedCounter++;
+    const randomArtistNumber = Math.floor(Math.random() * 1000000) + 1
+    relatedArtist = (
+      randomArtistNumber + ',' +
+      randomArtistNumber + '\n'
+    )
+    relatedStream.write(relatedArtist);
+  }
+  relatedStream.end(() => {
+    console.log(relatedCounter, 'RELATED CREATED')
+  });
+}
+
+

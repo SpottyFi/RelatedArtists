@@ -6,6 +6,12 @@ let connection = mysql.createConnection ({
   database: 'artists',
 });
 
+// EXAMPLE QUERY FOR PGADMIN 
+// select artist_name, "artistID", listeners, artist_image, "popularSong"
+//     from artist where "artistID" in 
+//     (select "related_Artist_ID" from "relatedArtists" where "main_Artist_ID" = 
+//     (select "artistID" from artist where "artistID" = '10' ))
+
 const getRelatedArtists = function (id, showArtist) {
   let sqlQuery =
     `select artist_name, artistid, listeners, artist_image, popularSong 

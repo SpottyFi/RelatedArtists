@@ -9,17 +9,23 @@ for (let i = 1; i <= 10; i++) {
 
   artistsStream.write('artist_name,listeners,artist_image,popularSong\n');
   let artistsCounter = 0;
-  let max = 100;
-  for (let j = 1; j <= max; j++) {
+  let maxArtists = 1000000;
+  let maxRelated = 10000000;
+  let artist = '';
+  let relatedArtist = '';
+  for (let j = 1; j <= maxArtists; j++) {
     artistsCounter++;
     const randomPhotoNumber = Math.floor(Math.random() * 1002);
-    artist = (
+    artist = artist + ('' +
       faker.name.findName() + ',' + 
       faker.random.number() + ',' +
       `https://s3-us-west-1.amazonaws.com/spottyfi-photos/photos/${randomPhotoNumber}.jpeg` + ',' +
       faker.lorem.word() + '\n'
     )
-    artistsStream.write(artist);
+    if (j % 100 === 0) {
+      artistsStream.write(artist);
+      artist = '';
+    }
   }
   artistsStream.end(() => {
     console.log(artistsCounter, 'ARTISTS CREATED')
@@ -29,14 +35,18 @@ for (let i = 1; i <= 10; i++) {
 
   relatedStream.write('related_artist_ID,main_artist_ID\n');
   let relatedCounter = 0;
-  for (let k = 1; k <= max; k++) {
+  for (let k = 1; k <= maxRelated; k++) {
     relatedCounter++;
-    const randomArtistNumber = Math.floor(Math.random() * 1000000) + 1
-    relatedArtist = (
+    const randomArtistNumber = Math.floor(Math.random() * 1000000) + 1;
+    const randomRelatedArtistNumber = Math.floor(Math.random() * 1000000) + 1;
+    relatedArtist = relatedArtist + ('' +
       randomArtistNumber + ',' +
-      randomArtistNumber + '\n'
+      randomRelatedArtistNumber + '\n'
     )
-    relatedStream.write(relatedArtist);
+    if (k % 100 === 0) {
+      relatedStream.write(relatedArtist);
+      relatedArtist = '';
+    }
   }
   relatedStream.end(() => {
     console.log(relatedCounter, 'RELATED CREATED')

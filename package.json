@@ -26,7 +26,8 @@
     "start": "nodemon server/index.js",
     "react-dev": "webpack -d --watch",
     "seed": "node database/dataGenerator.js",
-    "gendata": "node --max_old_space_size=7168 database/seedData.js;",
+    "gendatasql": "node --max_old_space_size=7168 database/seedDataPostgres.js;",
+    "gendatacql": "node --max_old_space_size=7168 database/seedDataCassandra.js;",
     "test": "jest",
     "build": "webpack --config webpack.prod.js"
   },

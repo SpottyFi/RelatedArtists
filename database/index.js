@@ -1,34 +1,28 @@
-let mysql = require ('mysql');
-let connection = mysql.createConnection ({
-  host: 'localhost',
-  user: 'root',
-  // password: 'password',
-  database: 'artists',
+const { Pool } = require('pg');
+
+const pool = new Pool({
+  host: "localhost",
+  user: "belguunbat-erdene",
+  database: "artists",
+  port: "5432"
 });
 
-// EXAMPLE QUERY FOR PGADMIN 
-// select artist_name, "artistID", listeners, artist_image, "popularSong"
-//     from artist where "artistID" in 
-//     (select "related_Artist_ID" from "relatedArtists" where "main_Artist_ID" = 
-//     (select "artistID" from artist where "artistID" = '10' ))
 
 const getRelatedArtists = function (id, showArtist) {
   let sqlQuery =
-    `select artist_name, artistid, listeners, artist_image, popularSong 
-    from artist where artistid in 
-    (select related_artist_id from relatedartists where main_artist_id = 
-    (select artistid from artist where artistid =` +
-    connection.escape (id) +
-    `))`;
-  connection.query (sqlQuery, function (error, result) {
-    if (error) {
-      console.log ('db query error');
-      showArtist (error, null);
-    } else {
-      console.log ('db query success');
-      showArtist (null, result);
-    }
-  });
+    `select artist_name, artist_id, listeners, artist_image, popular_song
+    from artist where artist_id in 
+    (select related_artist_id from "relatedArtists" where main_artist_id = 
+    (select artist_id from artist where artist_id = ${id} ))`
+  pool.query (sqlQuery)
+    .then(success => {
+      showArtist(null, success)
+      console.log("Successful GET")
+    })
+    .catch(error => {
+      showArtist(error, null)
+      console.log("Error in GET")
+    });
 };
 
 const updateRelatedArtist = function(id, updateArtist, callback) {

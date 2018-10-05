@@ -31,8 +31,9 @@ class RelatedArtistsApp extends React.Component {
       .get (`/artist/relatedArtists/${id}`)
       .then (response => {
         context.setState ({
-          relatedArtists: response.data,
+          relatedArtists: response.data.rows,
         });
+
       })
       .catch (function (error) {
         console.log (error);

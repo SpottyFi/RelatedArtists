@@ -9,7 +9,8 @@ app.use(cors());
 app.use(express.static(path.join(__dirname + '/../public')));
 
 app.get(`/artist/relatedArtists/:id`, (req, res) => {
-  db.getRelatedArtists(req.params.id, (error, data) => {
+  let id = req.params.id
+  db.getRelatedArtists(id, (error, data) => {
     if (error) {
       res.status(503).send(error);
     } else {

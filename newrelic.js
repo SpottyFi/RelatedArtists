@@ -9,7 +9,7 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name: ['SpottyFi'],
+  app_name: ['SpottyFi-RelatedArtists'],
   /**
    * Your New Relic license key.
    */

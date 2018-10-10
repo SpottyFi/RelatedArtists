@@ -1,14 +1,14 @@
 	import http from "k6/http";
 	import {
-	  sleep,
 	  check
 	} from "k6";
 
 	const randomID = Math.floor(Math.random() * 1000000);
 
 	export let options = {
-	  vus: 400,
-	  duration: "10s"
+	  vus: 100,
+    duration: "300s",
+    rps: 3000,
 	};
 
 	export default function () {

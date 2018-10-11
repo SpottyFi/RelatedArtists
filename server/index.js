@@ -2,11 +2,6 @@ require('newrelic');
 const express = require('express');
 const cluster = require('cluster');
 const os = require('os');
-const http = require('http');
-const https = require('https');
-
-http.globalAgent.maxSockets = Infinity;
-https.globalAgent.maxSockets = Infinity;
 
 
 if (cluster.isMaster) {

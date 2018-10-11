@@ -3,8 +3,13 @@ const {
 } = require('pg');
 
 const pool = new Pool({
-  host: "localhost",
-  user: "belguunbat-erdene",
+  // host: "localhost",
+  // user: "belguunbat-erdene",
+  // database: "artists",
+  // port: "5432"
+  host: "13.57.15.233",
+  user: "power_user",
+  password: "power_user",
   database: "artists",
   port: "5432"
 });
@@ -15,13 +20,12 @@ pool.on('error', (err, client) => {
 })
 
 
-
 const getRelatedArtists = function (id, artistCallback) {
   pool.connect()
     .then(client => {
       return client.query(`SELECT artist_name, artist_id, listeners, artist_image, popular_song
       FROM artist WHERE artist_id IN 
-      (SELECT related_artist_id FROM "relatedArtists" WHERE main_artist_id = 
+      (SELECT related_artist_id FROM relatedartists WHERE main_artist_id = 
       (SELECT artist_id FROM artist WHERE artist_id = ${id} ))`)
         .then(res => {
           client.release()
